@@ -15,16 +15,20 @@
  * =============================================================================
  */
 
-import type {TFLiteWebModelRunner, TFLiteWebModelRunnerOptions, TFLiteWebModelRunnerTensorInfo} from '@tensorflow/tfjs-tflite/dist/types/tflite_web_model_runner';
-import {TFHUB_SEARCH_PARAM, TFLiteModel} from './tflite_model';
-import * as fs from 'fs';
+import type {
+  TFLiteWebModelRunner,
+  TFLiteWebModelRunnerOptions,
+  TFLiteWebModelRunnerTensorInfo,
+} from "@tensorflow/tfjs-tflite/dist/types/tflite_web_model_runner";
+import { TFHUB_SEARCH_PARAM, TFLiteModel } from "./tflite_model";
+import * as fs from "fs";
 
-export * from './delegate_plugin';
-import {TFLiteDelegatePlugin} from './delegate_plugin';
-import fetch from 'node-fetch';
+export * from "./delegate_plugin";
+import { TFLiteDelegatePlugin } from "./delegate_plugin";
+import fetch from "node-fetch";
 
 // tslint:disable-next-line:no-require-imports
-const addon = require('bindings')('node_tflite_binding');
+const addon = require("bindings")("node_tflite_binding");
 
 interface InterpreterOptions {
   threads?: number;
@@ -36,28 +40,27 @@ interface InterpreterOptions {
 
 // tslint:disable-next-line:variable-name
 export const TFLiteNodeModelRunner = addon.Interpreter as {
-  new(model: ArrayBuffer, options: InterpreterOptions): TFLiteWebModelRunner;
+  new (model: ArrayBuffer, options: InterpreterOptions): TFLiteWebModelRunner;
 };
 
 // tslint:disable-next-line:variable-name
 export const TensorInfo = addon.TensorInfo as {
-  new(): TFLiteWebModelRunnerTensorInfo;
+  new (): TFLiteWebModelRunnerTensorInfo;
 };
 
-async function createModel(model: string | ArrayBuffer,
-    options?: TFLiteWebModelRunnerOptions
-    & {delegates?: TFLiteDelegatePlugin[]}
+async function createModel(
+  model: string | ArrayBuffer,
+  options?: TFLiteWebModelRunnerOptions & { delegates?: TFLiteDelegatePlugin[] }
 ): Promise<TFLiteWebModelRunner> {
   let modelData: ArrayBuffer;
 
-  if (typeof model === 'string') {
-    if (model.slice(0, 4) === 'http') {
+  if (typeof model === "string") {
+    if (model.slice(0, 4) === "http") {
       modelData = await (await fetch(model)).arrayBuffer();
     } else {
-      modelData = (await fs.promises.readFile(model)).buffer;
+      modelData = (await fs.promises.readFile(model)).buffer as ArrayBuffer;
     }
-  }
-  else {
+  } else {
     modelData = model;
   }
 
@@ -67,8 +70,10 @@ async function createModel(model: string | ArrayBuffer,
 
   const firstDelegate = options?.delegates?.[0];
   if (options?.delegates?.length > 1) {
-    console.warn('Only a single delegate is supported right now. Only the first '
-                 + `one, ${firstDelegate.name}, will be used`);
+    console.warn(
+      "Only a single delegate is supported right now. Only the first " +
+        `one, ${firstDelegate.name}, will be used`
+    );
   }
   if (firstDelegate) {
     const delegatePath = firstDelegate.node?.path;
@@ -92,13 +97,16 @@ async function createModel(model: string | ArrayBuffer,
  * @doc {heading: 'Models', subheading: 'Loading'}
  */
 export async function loadTFLiteModel(
-    model: string|ArrayBuffer,
-    options?: TFLiteWebModelRunnerOptions
-    & {delegates?: TFLiteDelegatePlugin[]}
+  model: string | ArrayBuffer,
+  options?: TFLiteWebModelRunnerOptions & { delegates?: TFLiteDelegatePlugin[] }
 ): Promise<TFLiteModel> {
   // Handle tfhub links.
-  if (typeof model === 'string' && model.includes('tfhub.dev') &&
-      model.includes('lite-model') && !model.endsWith(TFHUB_SEARCH_PARAM)) {
+  if (
+    typeof model === "string" &&
+    model.includes("tfhub.dev") &&
+    model.includes("lite-model") &&
+    !model.endsWith(TFHUB_SEARCH_PARAM)
+  ) {
     model = `${model}${TFHUB_SEARCH_PARAM}`;
   }
 
