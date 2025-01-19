@@ -10,7 +10,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "build": "node-gyp rebuild && tsc",
+    "postinstall": "node-gyp rebuild",
     "lint": "tslint -p . -t verbose"
   },
   "dependencies": {
