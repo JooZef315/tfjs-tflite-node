@@ -11,8 +11,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "node-gyp rebuild && tsc",
-    "lint": "tslint -p . -t verbose",
-    "postinstall": "node-gyp rebuild"
+    "lint": "tslint -p . -t verbose"
   },
   "dependencies": {
     "@tensorflow/tfjs-tflite": "^0.0.1-alpha.8",
