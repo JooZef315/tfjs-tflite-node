@@ -16,7 +16,7 @@
  */
 
 import * as os from "os";
-import { TFLiteDelegatePlugin } from "./delegate_plugin";
+import { TFLiteDelegatePlugin } from "./src/delegate_plugin";
 
 // The Coral delegate is unusual since it requires the user to have installed
 // libedgetpu themselves (due to udev rules for accessing the USB device).
