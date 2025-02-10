@@ -17,7 +17,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoralDelegate = void 0;
-var os = require("os");
+const os = require("os");
 // The Coral delegate is unusual since it requires the user to have installed
 // libedgetpu themselves (due to udev rules for accessing the USB device).
 // This means we don't actually ship any DLLs for node. Instead, we load the
@@ -25,22 +25,20 @@ var os = require("os");
 //
 // The following names are from the python implementation.
 // https://github.com/google-coral/pycoral/blob/9972f8ec6dbb8b2f46321e8c0d2513e0b6b152ce/pycoral/utils/edgetpu.py#L34-L38
-var libNames = new Map([
+const libNames = new Map([
     ["linux", "libedgetpu.so.1"],
     ["darwin", "libedgetpu.1.dylib"],
     ["win32", "edgetpu.dll"],
 ]);
-var CoralDelegate = /** @class */ (function () {
-    function CoralDelegate(options, libPath, platform) {
-        if (options === void 0) { options = {}; }
-        if (platform === void 0) { platform = os.platform(); }
+class CoralDelegate {
+    constructor(options = {}, libPath, platform = os.platform()) {
         this.name = "CoralDelegate";
         this.tfliteVersion = "2.7";
         this.options = [];
         if (!libPath) {
             libPath = libNames.get(platform);
             if (!libPath) {
-                throw new Error("Unknown platform ".concat(platform));
+                throw new Error(`Unknown platform ${platform}`);
             }
         }
         if (options.device) {
@@ -50,6 +48,6 @@ var CoralDelegate = /** @class */ (function () {
             path: libPath,
         };
     }
-    return CoralDelegate;
-}());
+}
 exports.CoralDelegate = CoralDelegate;
+//# sourceMappingURL=coral_delegate.js.map

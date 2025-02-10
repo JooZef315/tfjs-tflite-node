@@ -14,10 +14,10 @@
  * limitations under the License.
  * =============================================================================
  */
-import type { TFLiteWebModelRunner, TFLiteWebModelRunnerOptions, TFLiteWebModelRunnerTensorInfo } from '@tensorflow/tfjs-tflite/dist/types/tflite_web_model_runner';
-import { TFLiteModel } from './tflite_model';
-export * from './delegate_plugin';
-import { TFLiteDelegatePlugin } from './delegate_plugin';
+import type { TFLiteWebModelRunner, TFLiteWebModelRunnerOptions, TFLiteWebModelRunnerTensorInfo } from "@tensorflow/tfjs-tflite/dist/types/tflite_web_model_runner";
+import { TFLiteModel } from "./tflite_model";
+export * from "./delegate_plugin";
+import { TFLiteDelegatePlugin } from "./delegate_plugin";
 interface InterpreterOptions {
     threads?: number;
     delegate?: {

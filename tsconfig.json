@@ -20,5 +20,5 @@
     "allowUnreachableCode": false,
     "experimentalDecorators": true
   },
-  "include": ["src/", "coral_delegate.ts"]
+  "include": ["src/", "src/coral_delegate.ts"]
 }

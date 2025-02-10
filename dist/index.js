@@ -45,7 +45,7 @@ const fs = require("fs");
 __exportStar(require("./delegate_plugin"), exports);
 const node_fetch_1 = require("node-fetch");
 // tslint:disable-next-line:no-require-imports
-const addon = require('bindings')('node_tflite_binding');
+const addon = require("bindings")("node_tflite_binding");
 // tslint:disable-next-line:variable-name
 exports.TFLiteNodeModelRunner = addon.Interpreter;
 // tslint:disable-next-line:variable-name
@@ -54,8 +54,8 @@ function createModel(model, options) {
     var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
         let modelData;
-        if (typeof model === 'string') {
-            if (model.slice(0, 4) === 'http') {
+        if (typeof model === "string") {
+            if (model.slice(0, 4) === "http") {
                 modelData = yield (yield (0, node_fetch_1.default)(model)).arrayBuffer();
             }
             else {
@@ -70,8 +70,8 @@ function createModel(model, options) {
         };
         const firstDelegate = (_b = options === null || options === void 0 ? void 0 : options.delegates) === null || _b === void 0 ? void 0 : _b[0];
         if (((_c = options === null || options === void 0 ? void 0 : options.delegates) === null || _c === void 0 ? void 0 : _c.length) > 1) {
-            console.warn('Only a single delegate is supported right now. Only the first '
-                + `one, ${firstDelegate.name}, will be used`);
+            console.warn("Only a single delegate is supported right now. Only the first " +
+                `one, ${firstDelegate.name}, will be used`);
         }
         if (firstDelegate) {
             const delegatePath = (_d = firstDelegate.node) === null || _d === void 0 ? void 0 : _d.path;
@@ -97,8 +97,10 @@ function createModel(model, options) {
 function loadTFLiteModel(model, options) {
     return __awaiter(this, void 0, void 0, function* () {
         // Handle tfhub links.
-        if (typeof model === 'string' && model.includes('tfhub.dev') &&
-            model.includes('lite-model') && !model.endsWith(tflite_model_1.TFHUB_SEARCH_PARAM)) {
+        if (typeof model === "string" &&
+            model.includes("tfhub.dev") &&
+            model.includes("lite-model") &&
+            !model.endsWith(tflite_model_1.TFHUB_SEARCH_PARAM)) {
             model = `${model}${tflite_model_1.TFHUB_SEARCH_PARAM}`;
         }
         const tfliteModelRunner = yield createModel(model, options);

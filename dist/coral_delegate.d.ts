@@ -14,7 +14,8 @@
  * limitations under the License.
  * =============================================================================
  */
-import { TFLiteDelegatePlugin } from "./src/delegate_plugin";
+/// <reference types="node" />
+import { TFLiteDelegatePlugin } from "./delegate_plugin";
 export type CoralDevice = `:${number}` | "usb" | `usb:${number}` | "pci" | `pci:${number}`;
 export interface CoralOptions {
     device?: CoralDevice;
