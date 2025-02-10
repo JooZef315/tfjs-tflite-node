@@ -27,6 +27,9 @@ export * from "./delegate_plugin";
 import { TFLiteDelegatePlugin } from "./delegate_plugin";
 import fetch from "node-fetch";
 
+export { TFLiteModel } from "./tflite_model";
+export { CoralDelegate } from "./coral_delegate";
+
 // tslint:disable-next-line:no-require-imports
 const addon = require("bindings")("node_tflite_binding");
 

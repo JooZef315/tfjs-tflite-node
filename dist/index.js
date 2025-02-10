@@ -39,11 +39,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadTFLiteModel = exports.TensorInfo = exports.TFLiteNodeModelRunner = void 0;
+exports.loadTFLiteModel = exports.TensorInfo = exports.TFLiteNodeModelRunner = exports.CoralDelegate = exports.TFLiteModel = void 0;
 const tflite_model_1 = require("./tflite_model");
 const fs = require("fs");
 __exportStar(require("./delegate_plugin"), exports);
 const node_fetch_1 = require("node-fetch");
+var tflite_model_2 = require("./tflite_model");
+Object.defineProperty(exports, "TFLiteModel", { enumerable: true, get: function () { return tflite_model_2.TFLiteModel; } });
+var coral_delegate_1 = require("./coral_delegate");
+Object.defineProperty(exports, "CoralDelegate", { enumerable: true, get: function () { return coral_delegate_1.CoralDelegate; } });
 // tslint:disable-next-line:no-require-imports
 const addon = require("bindings")("node_tflite_binding");
 // tslint:disable-next-line:variable-name

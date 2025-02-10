@@ -18,6 +18,8 @@ import type { TFLiteWebModelRunner, TFLiteWebModelRunnerOptions, TFLiteWebModelR
 import { TFLiteModel } from "./tflite_model";
 export * from "./delegate_plugin";
 import { TFLiteDelegatePlugin } from "./delegate_plugin";
+export { TFLiteModel } from "./tflite_model";
+export { CoralDelegate } from "./coral_delegate";
 interface InterpreterOptions {
     threads?: number;
     delegate?: {
